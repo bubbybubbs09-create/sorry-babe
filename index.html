@@ -16,8 +16,8 @@
             background-color: #fff0f3;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
+            position: relative;
         }
-
         h1 {
             color: #d90429;
             margin-bottom: 40px;
@@ -25,15 +25,13 @@
             text-align: center;
             padding: 0 20px;
         }
-
-        .button-container {
+        .btn-container {
             display: flex;
             gap: 20px;
             align-items: center;
             justify-content: center;
             position: relative;
         }
-
         button {
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -42,67 +40,91 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-
         #yesBtn {
             background-color: #ff4d6d;
             color: white;
             z-index: 10;
         }
-
         #noBtn {
             background-color: #adb5bd;
             color: white;
+            position: relative;
         }
-
         #message {
             margin-top: 30px;
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #2b2d42;
             font-weight: bold;
             display: none;
             text-align: center;
+            line-height: 1.6;
         }
+        .multiplied-yes {
+            position: absolute;
+            background-color: #ff4d6d;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+            }
     </style>
 </head>
 <body>
 
-    <h1 id="question">Let's give it a chance?</h1>
-
-    <div class="button-container" id="btnContainer">
+    <h1 id="question">Will you give us another chance?</h1>
+    
+    <div class="btn-container" id="btnContainer">
         <button id="yesBtn" onclick="onYesClick()">Yes</button>
-        <button id="noBtn" onmouseover="onNoClick()">No</button>
+        <button id="noBtn" onmouseover="moveNoButton()">No</button>
     </div>
 
-    <div id="message">Yay! ❤️ Thank you! </div>
-    <div> WE'RE DEFINETLY GOING TO MAKE THIS WORK </div>
-    <div> CAN'T WAIT TO SEE YOU </div>
-    <div> 😍🥰🥰💸😘👌🙌🙏🙂‍↔️🙂‍↕️🫂🫂💪💪 </div>
+    <div id="message">
+        Yay! I knew you'd say yes.<br>
+        Let's make things right.<br>
+        I love you!
+    </div>
 
     <script>
-        let noClickCount = 0;
-        const maxClicks = 6; // How many times "No" shrinks before disappearing
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
 
-        function onNoClick() {
-           const newYesBtn= document.createElement ("button")
-            newYesBtn.innerText= "Yes";
-            document.getElementByld("btnContainer".appendChild (newYesBtn);
-            let shrinkSize = 1 - (noClickCount * 0.15);
-            if (shrinkSize > 0) {
-                noBtn.style.transform = `scale(${shrinkSize})`;
-            } else {
-                noBtn.style.display = 'none';
-            }
+            // Multiply Yes buttons to fill the screen
+            const newYes = document.createElement('button');
+            newYes.innerText = 'Yes!';
+            newYes.className = 'multiplied-yes';
+            newYes.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            newYes.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            newYes.onclick = onYesClick;
+            document.body.appendChild(newYes);
         }
 
         function onYesClick() {
             document.getElementById('question').style.display = 'none';
             document.getElementById('btnContainer').style.display = 'none';
+            
+            // Remove any multiplied buttons cluttering the screen
+            const extras = document.querySelectorAll('.multiplied-yes');
+            extras.forEach(btn => btn.remove());
+
+            // Show hidden message
             document.getElementById('message').style.display = 'block';
-            document.body.style.backgroundColor = '#ffccd5';
         }
     </script>
-
 </body>
 </html>
