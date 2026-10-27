@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's give it a chance</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff0f3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #d90429;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            z-index: 10;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+        }
+
+        #message {
+            margin-top: 30px;
+            font-size: 2rem;
+            color: #2b2d42;
+            font-weight: bold;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="question">Did you forgive me?</h1>
+
+    <div class="button-container" id="btnContainer">
+        <button id="yesBtn" onclick="onYesClick()">Yes</button>
+        <button id="noBtn" onclick="onNoClick()">No</button>
+    </div>
+
+    <div id="message">Yay! ❤️ Thank you! 
+    <BR\> WE'RE DEFINETLY GOING TO MAKE THIS WORK
+    <BR\> CAN'T WAIT TO SEE YOU 😍🥰🥰💸😘👌🙌🙏🙂‍↔️🙂‍↕️🫂🫂💪💪 </div>
+
+    <script>
+        let noClickCount = 0;
+        const maxClicks = 6; // How many times "No" shrinks before disappearing
+
+        function onNoClick() {
+            noClickCount++;
+            let yesBtn = document.getElementById('yesBtn');
+            let noBtn = document.getElementById('noBtn');
+
+            // Grow the Yes button
+            let currentSize = 1 + (noClickCount * 0.5);
+            yesBtn.style.transform = `scale(${currentSize})`;
+
+            // Shrink the No button
+            let shrinkSize = 1 - (noClickCount * 0.15);
+            if (shrinkSize > 0) {
+                noBtn.style.transform = `scale(${shrinkSize})`;
+            } else {
+                noBtn.style.display = 'none';
+            }
+        }
+
+        function onYesClick() {
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('btnContainer').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+            document.body.style.backgroundColor = '#ffccd5';
+        }
+    </script>
+
+</body>
+</html>
