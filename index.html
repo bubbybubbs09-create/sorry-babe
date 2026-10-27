@@ -68,31 +68,26 @@
 </head>
 <body>
 
-    <h1 id="question">Did you forgive me?</h1>
+    <h1 id="question">Let's give it a chance?</h1>
 
     <div class="button-container" id="btnContainer">
         <button id="yesBtn" onclick="onYesClick()">Yes</button>
-        <button id="noBtn" onclick="onNoClick()">No</button>
+        <button id="noBtn" onmouseover="onNoClick()">No</button>
     </div>
 
-    <div id="message">Yay! ❤️ Thank you! 
-    <BR\> WE'RE DEFINETLY GOING TO MAKE THIS WORK
-    <BR\> CAN'T WAIT TO SEE YOU 😍🥰🥰💸😘👌🙌🙏🙂‍↔️🙂‍↕️🫂🫂💪💪 </div>
+    <div id="message">Yay! ❤️ Thank you! </div>
+    <div> WE'RE DEFINETLY GOING TO MAKE THIS WORK </div>
+    <div> CAN'T WAIT TO SEE YOU </div>
+    <div> 😍🥰🥰💸😘👌🙌🙏🙂‍↔️🙂‍↕️🫂🫂💪💪 </div>
 
     <script>
         let noClickCount = 0;
         const maxClicks = 6; // How many times "No" shrinks before disappearing
 
         function onNoClick() {
-            noClickCount++;
-            let yesBtn = document.getElementById('yesBtn');
-            let noBtn = document.getElementById('noBtn');
-
-            // Grow the Yes button
-            let currentSize = 1 + (noClickCount * 0.5);
-            yesBtn.style.transform = `scale(${currentSize})`;
-
-            // Shrink the No button
+           const newYesBtn= document.createElement ("button")
+            newYesBtn.innerText= "Yes";
+            document.getElementByld("btnContainer".appendChild (newYesBtn);
             let shrinkSize = 1 - (noClickCount * 0.15);
             if (shrinkSize > 0) {
                 noBtn.style.transform = `scale(${shrinkSize})`;
